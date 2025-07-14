@@ -1,10 +1,16 @@
 from rich.console import Console
 from rich.table import Table
+from datetime import datetime
 
 console = Console()
 
-def print_enrichment_table(data: dict):
-    table = Table(title=f"Enrichment for {data['ip']}")
+def format_timestamp(ts):
+    if not ts:
+        return "N/A"
+    return datetime.utcfromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S UTC')
+
+def print_abuseipdb_table(data: dict):
+    table = Table(title=f"AbuseIPDB Enrichment for {data['ip']}")
     
     table.add_column("Field", style="bold cyan")
     table.add_column("Value", style="magenta")
@@ -17,5 +23,88 @@ def print_enrichment_table(data: dict):
     table.add_row("Domain", data.get('domain', 'Unknown'))
     table.add_row("Country", data["country"])
 
+
+    console.print(table)
+
+def print_virustotal_ip_table(data: dict):
+    table = Table(title=f"VirusTotal Enrichment for {data['ip']}")
+
+    table.add_column("Field", style="bold green")
+    table.add_column("Value", style="yellow")
+
+    table.add_row("Reputation", str(data.get("reputation", "N/A")))
+    table.add_row("Reputation Score", str(data.get("reputation_score", "N/A")))
+    table.add_row("AS Owner", str(data.get("as_owner", "N/A")))
+    table.add_row("Country", str(data.get("country", "N/A")))
+    table.add_row("Network", str(data.get("network", "N/A")))
+
+        # Format tags
+    tags = data.get("tags", [])
+    table.add_row("Tags", ", ".join(tags) if tags else "N/A")
+
+    # Safely convert UNIX timestamp
+    timestamp = data.get("last_analysis_date")
+    if isinstance(timestamp, int):
+        readable_date = datetime.utcfromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S UTC")
+    else:
+        readable_date = "N/A"
+    table.add_row("Last Analysis Date", readable_date)
+
+    # Format last_analysis_stats
+    last_analysis_stats = data.get("last_analysis_stats", {})
+    stats_str = "\n".join(f"{k}: {v}" for k, v in last_analysis_stats.items()) if last_analysis_stats else "N/A"
+    table.add_row("Last Analysis Stats", stats_str)
+
+    console.print(table)
+
+def print_virustotal_hash_table(data: dict):
+        table = Table(title=f"VirusTotal Hash Enrichment for {data.get('hash', 'Unknown')}")
+
+        table.add_column("Field", style="bold blue")
+        table.add_column("Value", style="bright_white")
+
+        table.add_row("Reputation", data.get("reputation", "N/A"))
+        table.add_row("Type", data.get("type_description", "N/A"))
+        table.add_row("Filename", data.get("meaningful_name", "N/A"))
+        table.add_row("MD5", data.get("md5", "N/A"))
+        table.add_row("SHA-1", data.get("sha1", "N/A"))
+        table.add_row("SHA-256", data.get("sha256", "N/A"))
+        table.add_row("Times Submitted", str(data.get("times_submitted", "N/A")))
+        table.add_row("First Seen", format_timestamp(data.get("first_submission_date")))
+        table.add_row("Last Seen", format_timestamp(data.get("last_submission_date")))
+        tags = data.get("tags", [])
+        table.add_row("Tags", ", ".join(tags) if tags else "N/A")
+
+        stats = data.get("last_analysis_stats", {})
+        if stats:
+            stats_str = "\n".join(f"{k}: {v}" for k, v in stats.items())
+        else:
+            stats_str = "N/A"
+        table.add_row("Last Analysis Stats", stats_str)
+
+        console.print(table)
+
+def print_malwarebazaar_hash_table(data: dict):
+    table = Table(title=f"MalwareBazaar Enrichment for {data.get('hash', 'Unknown')}")
+
+    table.add_column("Field", style="bold blue")
+    table.add_column("Value", style="yellow")
+
+    table.add_row("Query Status", data.get("query_status", "N/A"))
+    table.add_row("File Name", data.get("file_name", "N/A"))
+    table.add_row("File Type MIME", data.get("file_type_mime", "N/A"))
+    table.add_row("File Type", data.get("file_type", "N/A"))
+    table.add_row("Signature", data.get("signature", "N/A"))
+    table.add_row("Signature Malware Class", data.get("signature_malware_class", "N/A"))
+    table.add_row("Signature Status", data.get("signature_status", "N/A"))
+    table.add_row("Tags", ", ".join(data.get("tags", [])) if data.get("tags") else "N/A")
+    table.add_row("First Seen", data.get("first_seen", "N/A"))
+    table.add_row("Last Seen", data.get("last_seen", "N/A"))
+    table.add_row("SSDeep", data.get("ssdeep", "N/A"))
+    table.add_row("ImpHash", data.get("imphash", "N/A"))
+    table.add_row("MD5", data.get("md5", "N/A"))
+    table.add_row("SHA1", data.get("sha1", "N/A"))
+    table.add_row("SHA256", data.get("sha256", "N/A"))
+    table.add_row("Message", data.get("message", ""))
 
     console.print(table)
