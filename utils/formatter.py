@@ -136,3 +136,29 @@ def print_virustotal_domain_table(data: dict):
         table.add_row("VirusTotal Link", vt_url)
 
     console.print(table)
+
+def print_google_safebrowsing_table(data: dict):
+    domain = data.get("domain", "Unknown Domain")
+    table = Table(title=f"Google Safe Browsing for {domain}")
+
+    table.add_column("Field", style="bold cyan")
+    table.add_column("Value", style="magenta")
+
+    malicious = data.get("malicious", False)
+
+    if malicious:
+        details = data.get("details", [])
+        for i, detail in enumerate(details, start=1):
+            threat_type = detail.get("threatType", "N/A")
+            platform = detail.get("platformType", "N/A")
+            entry_type = detail.get("threatEntryType", "N/A")
+            table.add_row(f"Threat {i} Type", threat_type)
+            table.add_row(f"Threat {i} Platform", platform)
+            table.add_row(f"Threat {i} Entry Type", entry_type)
+    else:
+        table.add_row("Details", "No threats found")
+
+    if "error" in data:
+        table.add_row("Error", data["error"])
+
+    console.print(table)
