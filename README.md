@@ -30,7 +30,7 @@ It provides fast, comprehensive enrichment of Indicators of Compromise (IOCs) su
 
    ```bash
    git clone https://github.com/Roift/CorpseChasm-KnowYourEnemy
-   cd KnowYourEnemy
+   cd CorpseChasm-KnowYourEnemy
    ```
 
 2. Create and activate a Python virtual environment (optional but recommended):
