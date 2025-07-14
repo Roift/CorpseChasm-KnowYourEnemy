@@ -162,3 +162,40 @@ def print_google_safebrowsing_table(data: dict):
         table.add_row("Error", data["error"])
 
     console.print(table)
+
+def print_whois_table(data: dict):
+    table = Table(title=f"WHOIS Lookup for {data.get('domain', 'Unknown Domain')}")
+
+    table.add_column("Field", style="bold cyan")
+    table.add_column("Value", style="magenta")
+
+    if data.get("error"):
+        table.add_row("Error", data["error"])
+    else:
+        for field in ["registrar", "creation_date", "expiration_date", "updated_date", "name_servers", "emails", "status", "dnssec"]:
+            value = data.get(field)
+            if isinstance(value, list):
+                value = "\n".join(value)
+            elif value is None:
+                value = "N/A"
+            else:
+                value = str(value)
+            table.add_row(field.replace("_", " ").title(), value)
+
+    console.print(table)
+
+def print_passive_dns_virustotal_table(data: dict):
+    table = Table(title=f"VirusTotal Passive DNS for {data.get('domain', 'Unknown')}")
+    table.add_column("IP Address", style="cyan")
+    table.add_column("Date", style="magenta")
+
+    resolutions = data.get("resolutions", [])
+    if not resolutions:
+        table.add_row("No historical resolutions found", "")
+    else:
+        for res in resolutions:
+            ip = res.get("ip", "N/A")
+            date = format_timestamp(res.get("date"))
+            table.add_row(ip, date)
+
+    console.print(table)
