@@ -40,16 +40,16 @@ It provides fast, comprehensive enrichment of Indicators of Compromise (IOCs) su
     ```
 
 3. Install dependencies:
-```bash
-    pip install -r requirements.txt
-```
+  ```bash
+      pip install -r requirements.txt
+  ```
 
 4. Create a `.env` file with your API keys:
-```env
-    VIRUSTOTAL_API_KEY=your_virustotal_api_key
-    GOOGLE_SAFE_BROWSING_API_KEY=your_google_api_key
-    ABUSEIPDB_API_KEY=your_abuseipdb_api_key
-```
+  ```env
+      VIRUSTOTAL_API_KEY=your_virustotal_api_key
+      GOOGLE_SAFE_BROWSING_API_KEY=your_google_api_key
+      ABUSEIPDB_API_KEY=your_abuseipdb_api_key
+  ```
 
 ---
 
