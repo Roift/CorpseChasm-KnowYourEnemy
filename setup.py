@@ -12,13 +12,13 @@ setup(
         "python-whois",
         # add other dependencies here
     ],
-    entry_points={
-        "console_scripts": [
-            "kye=main:enrich",  # kye command runs main.enrich()
-        ]
-    },
-    author="Your Name",
+entry_points={
+    "console_scripts": [
+        "kye=knowyourenemy.main:enrich",
+    ]
+},
+    author="Isaac Erdman",
     description="KnowYourEnemy: Threat analysis swiss army knife for SOC Analysts",
-    url="https://github.com/yourusername/KnowYourEnemy",
+    url="https://github.com/Roift/CorpseChasm-KnowYourEnemy",
     python_requires=">=3.7",
 )
