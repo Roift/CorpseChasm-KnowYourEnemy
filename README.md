@@ -39,9 +39,9 @@ It provides fast, comprehensive enrichment of Indicators of Compromise (IOCs) su
     source venv/bin/activate  # On Windows: venv\Scripts\activate
     ```
 
-3. Install dependencies:
+3. Install package and dependencies using pip:
   ```bash
-      pip install -r requirements.txt
+    pip install .
   ```
 
 4. Create a `.env` file with your API keys:
@@ -56,28 +56,28 @@ It provides fast, comprehensive enrichment of Indicators of Compromise (IOCs) su
 ## Usage
 Basic command structure:
 ```bash
-    python main.py --ioc <indicator> [--whois] [--pdns]
+    kye --ioc <indicator> [--whois] [--pdns]
 ```
 
 ### Examples
 - Enrich an IP address
 ```bash
-    python main.py --ioc 8.8.8.8
+    kye --ioc 8.8.8.8
 ```
 
 - Enrich a domain and perform WHOIS lookup:
 ```bash
-    python main.py --ioc example.com --whois
+    kye --ioc example.com --whois
 ```
 
 - Enrich a domain with Passive DNS lookups:
 ```bash
-    python main.py --ioc example.com --pdns
+    kye --ioc example.com --pdns
 ```
 
 Enrich a file hash (SHA-256):
 ```bash
-    python main.py --ioc 44d88612fea8a8f36de82e1278abb02f
+    kye --ioc 44d88612fea8a8f36de82e1278abb02f
 ```
 
 ---
