@@ -64,6 +64,7 @@ def print_virustotal_hash_table(data: dict):
         table.add_column("Value", style="bright_white")
 
         table.add_row("Reputation", data.get("reputation", "N/A"))
+        table.add_row("Malware Family", data.get("malware_family", "N/A"))
         table.add_row("Type", data.get("type_description", "N/A"))
         table.add_row("Filename", data.get("meaningful_name", "N/A"))
         table.add_row("MD5", data.get("md5", "N/A"))

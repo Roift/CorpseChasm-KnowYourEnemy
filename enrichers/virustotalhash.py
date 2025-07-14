@@ -19,6 +19,9 @@ def enrich_hash_virustotal(hash_value: str) -> dict:
         json_response = response.json()
 
         data = json_response.get("data", {}).get("attributes", {})
+        classification = data.get("popular_threat_classification", {})
+        malware_family = classification.get("suggested_threat_label", "N/A")
+
 
         # Basic reputation info
         malicious_count = data.get("last_analysis_stats", {}).get("malicious", 0)
@@ -43,6 +46,7 @@ def enrich_hash_virustotal(hash_value: str) -> dict:
             "times_submitted": data.get("times_submitted", 0),
             "first_submission_date": data.get("first_submission_date"),
             "last_submission_date": data.get("last_submission_date"),
+            "malware_family": malware_family,
         }
 
     except Exception as e:
