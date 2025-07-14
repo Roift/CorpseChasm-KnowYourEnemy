@@ -83,3 +83,56 @@ def print_virustotal_hash_table(data: dict):
         table.add_row("Last Analysis Stats", stats_str)
 
         console.print(table)
+
+def print_virustotal_domain_table(data: dict):
+    table = Table(title=f"VirusTotal Enrichment for {data.get('domain', 'Unknown Domain')}")
+
+    table.add_column("Field", style="bold blue")
+    table.add_column("Value", style="bright_white")
+
+    table.add_row("Reputation", data.get("reputation", "N/A"))
+    table.add_row("Reputation Score", str(data.get("reputation_score", "N/A")))
+
+    # Format analysis stats
+    analysis_stats = data.get("last_analysis_stats", {})
+    stats_str = "\n".join(f"{k}: {v}" for k, v in analysis_stats.items()) if analysis_stats else "N/A"
+    table.add_row("Last Analysis Stats", stats_str)
+
+    # Last analysis date
+    last_analysis_date = data.get("last_analysis_date")
+    if isinstance(last_analysis_date, int):
+        readable_date = datetime.utcfromtimestamp(last_analysis_date).strftime("%Y-%m-%d %H:%M:%S UTC")
+    else:
+        readable_date = "N/A"
+    table.add_row("Last Analysis Date", readable_date)
+
+    table.add_row("Registrar", data.get("registrar", "N/A"))
+
+    # Creation date formatting (if it’s a Unix timestamp)
+    creation_date = data.get("creation_date")
+    if isinstance(creation_date, int):
+        creation_str = datetime.utcfromtimestamp(creation_date).strftime("%Y-%m-%d %H:%M:%S UTC")
+    else:
+        creation_str = str(creation_date) if creation_date else "N/A"
+    table.add_row("Creation Date", creation_str)
+
+    # Tags
+    tags = data.get("tags", [])
+    table.add_row("Tags", ", ".join(tags) if tags else "N/A")
+
+    # DNS Records
+    dns_records = data.get("last_dns_records", [])
+    dns_info = "\n".join([r.get("value", "") for r in dns_records if "value" in r]) if dns_records else "N/A"
+    table.add_row("DNS Records", dns_info)
+
+    # SOA Record
+    soa = data.get("last_dns_soa", {})
+    soa_info = "\n".join([f"{k}: {v}" for k, v in soa.items()]) if soa else "N/A"
+    table.add_row("SOA Record", soa_info)
+
+    # Optional: Add a VirusTotal GUI link for convenience
+    if data.get("domain"):
+        vt_url = f"https://www.virustotal.com/gui/domain/{data['domain']}/detection"
+        table.add_row("VirusTotal Link", vt_url)
+
+    console.print(table)
