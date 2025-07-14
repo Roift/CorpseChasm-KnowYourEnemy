@@ -4,6 +4,7 @@ setup(
     name="knowyourenemy",
     version="1.0.0",
     packages=find_packages(),
+    include_package_data=True, 
     install_requires=[
         "click",
         "requests",
@@ -12,11 +13,11 @@ setup(
         "python-whois",
         # add other dependencies here
     ],
-entry_points={
-    "console_scripts": [
-        "kye=knowyourenemy.main:enrich",
-    ]
-},
+    entry_points={
+        "console_scripts": [
+            "kye=knowyourenemy.main:enrich",
+        ]
+    },
     author="Isaac Erdman",
     description="KnowYourEnemy: Threat analysis swiss army knife for SOC Analysts",
     url="https://github.com/Roift/CorpseChasm-KnowYourEnemy",
