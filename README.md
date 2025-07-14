@@ -29,7 +29,7 @@ It provides fast, comprehensive enrichment of Indicators of Compromise (IOCs) su
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/KnowYourEnemy.git
+   git clone https://github.com/Roift/CorpseChasm-KnowYourEnemy/KnowYourEnemy.git
    cd KnowYourEnemy
    ```
 
