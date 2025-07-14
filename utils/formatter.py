@@ -83,28 +83,3 @@ def print_virustotal_hash_table(data: dict):
         table.add_row("Last Analysis Stats", stats_str)
 
         console.print(table)
-
-def print_malwarebazaar_hash_table(data: dict):
-    table = Table(title=f"MalwareBazaar Enrichment for {data.get('hash', 'Unknown')}")
-
-    table.add_column("Field", style="bold blue")
-    table.add_column("Value", style="yellow")
-
-    table.add_row("Query Status", data.get("query_status", "N/A"))
-    table.add_row("File Name", data.get("file_name", "N/A"))
-    table.add_row("File Type MIME", data.get("file_type_mime", "N/A"))
-    table.add_row("File Type", data.get("file_type", "N/A"))
-    table.add_row("Signature", data.get("signature", "N/A"))
-    table.add_row("Signature Malware Class", data.get("signature_malware_class", "N/A"))
-    table.add_row("Signature Status", data.get("signature_status", "N/A"))
-    table.add_row("Tags", ", ".join(data.get("tags", [])) if data.get("tags") else "N/A")
-    table.add_row("First Seen", data.get("first_seen", "N/A"))
-    table.add_row("Last Seen", data.get("last_seen", "N/A"))
-    table.add_row("SSDeep", data.get("ssdeep", "N/A"))
-    table.add_row("ImpHash", data.get("imphash", "N/A"))
-    table.add_row("MD5", data.get("md5", "N/A"))
-    table.add_row("SHA1", data.get("sha1", "N/A"))
-    table.add_row("SHA256", data.get("sha256", "N/A"))
-    table.add_row("Message", data.get("message", ""))
-
-    console.print(table)

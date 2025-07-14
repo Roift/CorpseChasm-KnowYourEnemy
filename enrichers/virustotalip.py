@@ -2,7 +2,7 @@ import os
 import requests
 from dotenv import load_dotenv
 
-load_dotenv() # Load .env variables
+load_dotenv()  # Load .env variables
 
 API_KEY = os.getenv("VIRUSTOTAL_API_KEY")
 API_URL = "https://www.virustotal.com/api/v3/ip_addresses/{ip}"
@@ -15,10 +15,11 @@ def enrich_ip_virustotal(ip: str) -> dict:
 
     try:
         response = requests.get(url, headers=headers)
-        response.raise_for_status()
-        json_response = response.json()
 
-        data = json_response.get("data",{}).get("attributes",{})
+        response.raise_for_status()  # Raises an HTTPError if not 200
+
+        json_response = response.json()
+        data = json_response.get("data", {}).get("attributes", {})
 
         reputation_score = data.get("reputation", 0)
         if reputation_score < 0:
@@ -39,8 +40,9 @@ def enrich_ip_virustotal(ip: str) -> dict:
             "tags": data.get("tags", []),
             "network": data.get("network"),
         }
+
     except Exception as e:
-        # can log exception here
+        print(f"[ERROR] VirusTotal IP API call failed: {e}")
         return {
             "ip": ip,
             "reputation": "Unknown (VT API call failed)",

@@ -4,12 +4,10 @@ from utils.ioc_parser import detect_ioc_type
 from enrichers.abuseipdb import enrich_ip_abuseipdb
 from enrichers.virustotalip import enrich_ip_virustotal
 from enrichers.virustotalhash import enrich_hash_virustotal
-from enrichers.malwarebazaar import enrich_hash_malwarebazaar
 
 from utils.formatter import print_abuseipdb_table
 from utils.formatter import print_virustotal_ip_table
 from utils.formatter import print_virustotal_hash_table
-from utils.formatter import print_malwarebazaar_hash_table
 
 @click.command()
 @click.option('--ioc', help='Indicator of Compromise (IP, domain, hash)')
@@ -26,8 +24,6 @@ def enrich(ioc):
     elif ioc_type.startswith('hash'):
         virustotal_hash_result = enrich_hash_virustotal(ioc)
         print_virustotal_hash_table(virustotal_hash_result)
-        malwarebazaar_hash_result = enrich_hash_malwarebazaar(ioc)
-        print_malwarebazaar_hash_table(malwarebazaar_hash_result)
 
     else:
         click.echo("[!] Enrichment for this IOC type not implemented yet.")
