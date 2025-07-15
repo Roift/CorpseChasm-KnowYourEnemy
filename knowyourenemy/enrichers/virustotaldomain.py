@@ -15,8 +15,6 @@ def enrich_domain_virustotal(domain: str) -> dict:
 
     try:
         response = requests.get(url, headers=headers)
-        print(f"[DEBUG] Response Status Code: {response.status_code}")
-        print(f"[DEBUG] Response Text (first 500 chars): {response.text[:500]}")
         response.raise_for_status()
 
         data = response.json().get("data", {}).get("attributes", {})

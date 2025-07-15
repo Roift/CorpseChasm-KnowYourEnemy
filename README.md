@@ -30,7 +30,7 @@ It provides fast, comprehensive enrichment of Indicators of Compromise (IOCs) su
 
    ```bash
    git clone https://github.com/Roift/CorpseChasm-KnowYourEnemy
-   cd CorpseChasm-KnowYourEnemy
+   cd CorpseChasm-KnowYourEnemy/knowyourenemy
    ```
 
 2. Create and activate a Python virtual environment (optional but recommended):
@@ -40,16 +40,16 @@ It provides fast, comprehensive enrichment of Indicators of Compromise (IOCs) su
     ```
 
 3. Install package and dependencies using pip:
-  ```bash
+    ```bash
     pip install .
-  ```
+    ```
 
 4. Create a `.env` file with your API keys:
-  ```env
-      VIRUSTOTAL_API_KEY=your_virustotal_api_key
-      GOOGLE_SAFE_BROWSING_API_KEY=your_google_api_key
-      ABUSEIPDB_API_KEY=your_abuseipdb_api_key
-  ```
+    ```env
+    VIRUSTOTAL_API_KEY=your_virustotal_api_key
+    GOOGLE_SAFE_BROWSING_API_KEY=your_google_api_key
+    ABUSEIPDB_API_KEY=your_abuseipdb_api_key
+    ```
 
 ---
 
