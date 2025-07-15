@@ -55,7 +55,7 @@ def enrich(ioc, whois, pdns):
 
         
     else:
-        click.echo("[!] Enrichment for this IOC type not implemented yet.")
+        click.echo("[!] Enrichment for this IOC type not implemented yet. Supported types are IP, Domain, and Hash (MD5, SHA-1, SHA-256)")
 
 if __name__ == '__main__':
     enrich()
